@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         removeFromSongList() {
-            this.$emit(`removeFromSongList`, this.songName)
+            this.$root.$emit(`removeFromSongList`, this.songName)
         }
     },
 }

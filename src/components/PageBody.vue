@@ -3,22 +3,22 @@
     <div>
         <!-- THIS IS THE PARENT PASSING PROPS TO THE SONGLIST COMPONENT TO SHOW THEM ON THE PAGE -->
         <SongList v-for="track in tracks" :key="track.id" :songName="track.title" :songArtist="track.band"
-            :albumCover="track.coverImg" @removeFromSonglist="removeFromSonglist" />
+            :albumCover="track.coverImg" @removeFromSonglist="moveToPlayList" />
         <!-- THIS IS THE PARENT PASSING PROPS TO THE PLAYLIST COMPONENT TO GET SELECTED SONGS TO APPEAR THERE -->
-        <section class="songsAdded">
-            <!-- <PlayList v-for="track in tracks" :key="track.id" :songName="track.title" :songArtist="track.band"
-                :albumCover="track.coverImg" @addToSongList="Playlist" /> -->
+        <section :class="{ playlist: isAdded }">
+            <PlayList v-for="track in tracks" :key="track.id" :songName="track.title" :songArtist="track.band"
+                :albumCover="track.coverImg" @addToSongList="Playlist" />
         </section>
     </div>
 </template>
 
 <script>
 import SongList from "@/components/SongList.vue";
-// import PlayList from "@/components/PlayList.vue";
+import PlayList from "@/components/PlayList.vue";
 export default {
     components: {
         SongList,
-        // PlayList
+        PlayList
     },
     name: "PageBody",
     data() {
@@ -60,13 +60,16 @@ export default {
         }
     },
     methods: {
+        removeFromSonglist() {
+            this.isAdded = !this.isAdded
+        },
+        moveToPlayList(track) {
+            this.$root.$emit.selection.pop(track);
+            console.log(`pop off playlist`);
+        },
         Playlist(track) {
             this.selection.push(track)
             console.log(`is this on?`);
-        },
-        removeFromSonglist(track) {
-            this.selection.pop(track);
-            console.log(`pop off playlist`);
         }
     },
 }
@@ -74,5 +77,7 @@ export default {
 </script>
 
 <style scoped>
-
+.playlist {
+    border: 3px solid black;
+}
 </style>
