@@ -1,23 +1,18 @@
 <template>
   <div id="app">
-    <!-- <img alt="logo" src="@/assets/spotify.png"> -->
     <PageBody />
-    <PlayList />
-    <SongList />
   </div>
 </template>
 
 <script>
 import PageBody from '@/components/PageBody.vue'
-import PlayList from '@/components/PlayList.vue'
-import SongList from '@/components/SongList.vue'
+// import PlayList from '@/components/PlayList.vue'
+// import SongList from '@/components/SongList.vue'
 
 export default {
   name: 'App',
   components: {
     PageBody,
-    PlayList,
-    SongList
   }
 }
 </script>
